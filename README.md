@@ -1,2 +1,0 @@
-# piggyBankTemplate
-Created with CodeSandbox
