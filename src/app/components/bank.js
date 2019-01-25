@@ -9,7 +9,7 @@ const bankTemplate = model => {
     +helloTemplate(model)+''
     +createPigTemplate(model)+''
     +checkPigTemplate(model)+''
-    "</section>";
+    +"</section>";
 };
 
 class BankComponent {
@@ -17,15 +17,23 @@ class BankComponent {
     this.api = app.api;
     this.router = app.router;
     this.name = "bank";
-    this.model = {
+    var model = {
       metamaskEnabled: false,
       address: "0x0000000000000000000000000000000000000000",
-      hasPig: true,
+      hasPig: false,
       pig:{
-          weeksLeft:5,
-          payPerWeek:"1000000000000000"
+          numberOfWeeks:15,
+          payPerWeek:30
       }
     };
+    this.actions = {
+        addPig:function(event){
+            var weekNum = document.getElementById("numOfWeeks").value;
+            var sumToSave = document.getElementById("sumToSave").value;
+            app.api.addPig(weekNum,sumToSave);
+        }
+    }
+    this.model = model;
   }
   view(model) {
     return bankTemplate(model);

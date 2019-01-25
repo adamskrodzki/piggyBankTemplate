@@ -7,9 +7,10 @@ class PigComponent {
     this.api = app.api;
     this.name = "pig";
     this.model = {
-      pigWeeksLeft: "",
-      weeklyAmount: "",
-      weeksSinceLastPayment: "",
+
+      pigWeeksLeft: "7",
+      weeklyAmount: "10000000000000000",
+      weeksSinceLastPayment: "2",
       hasPig:false
     };
   }
@@ -17,11 +18,7 @@ class PigComponent {
   view(model) {
     const cHTML = template(this.model);
     console.log("template ready");
-    return `
-      <ul class="dogs">
-        ${cHTML}
-      </ul>
-    `;
+    return `${cHTML}`;
   }
   controller(model) {}
 }

@@ -10,6 +10,8 @@ setupApp();
 function setupApp() {
   const app = new App("#app");
 
+  window.App = app;
+
   buildServices(app);
   setupComponents(app);
   setupRoutes(app);

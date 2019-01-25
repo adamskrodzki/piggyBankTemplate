@@ -1,5 +1,7 @@
+import * as ContractData from './contractdata';
 /*global Web3, web3, ethereum*/
 class API {
+
   constructor() {
     this.callbacks = [];
     var self = this;
@@ -15,7 +17,7 @@ class API {
             self.isEnabled = true;
             self.address = res[0];
             var provider = web3.currentProvider;
-            this.web3js = new Web3(web3.currentProvider);
+            self.web3js = new Web3(web3.currentProvider);
             self.riseInitialized();
             console.log(res);
           })
@@ -25,20 +27,20 @@ class API {
           });
       } else {
         var provider = web3.currentProvider;
-        this.web3js = new Web3(web3.currentProvider);
-        this.web3js.eth.getAccounts(function(e, data) {
+        self.web3js = new Web3(web3.currentProvider);
+        self.web3js.eth.getAccounts(function(e, data) {
           if (!e) {
-            this.address = data[0];
-            this.isEnabled = true;
+            self.address = data[0];
+            self.isEnabled = true;
           } else {
-            this.isEnabled = false;
+            self.isEnabled = false;
           }
         });
       }
     } else {
-      this.isEnabled = false;
-      this.address = "0x0000000000000000000000000000000000000000";
-      this.riseInitialized();
+      self.isEnabled = false;
+      self.address = "0x0000000000000000000000000000000000000000";
+      self.riseInitialized();
     }
   }
   riseInitialized() {
@@ -58,6 +60,9 @@ class API {
     if (this.initialized) {
       this.runCallback(clbk);
     }
+  }
+  addPig(weeksNum,sumToSave){
+    console.log('Txt');
   }
 }
 export { API };
