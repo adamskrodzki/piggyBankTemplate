@@ -12,7 +12,7 @@ const savingsPigTemplate = model => {
   }
   if(model.weeksSinceLastPayment == 0){
       feedButtonClass = "btn-disabled";
-      additionalPig = "Świna syta ";
+      additionalText = "Świna syta ";
   }
   if(model.weeksSinceLastPayment >1){
       pigImageUrl = "/assets/sadpig.jpg";

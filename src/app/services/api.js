@@ -2,6 +2,16 @@ import * as ContractData from './contractdata';
 /*global Web3, web3, ethereum*/
 class API {
 
+  setupContracts(w3,addr){
+      var self = this;
+      self.bank = w3.eth.contract(ContractData.BankABI).at(ContractData.BankAddress);
+      self.bank.pigs.call(addr,function(err,res){
+          if(!err){
+              self.pig = w3.eth.contract(ContractData.MoneyPigABI).at(addr);
+          }
+          self.riseInitialized();
+      })
+  };
   constructor() {
     this.callbacks = [];
     var self = this;
@@ -18,7 +28,7 @@ class API {
             self.address = res[0];
             var provider = web3.currentProvider;
             self.web3js = new Web3(web3.currentProvider);
-            self.riseInitialized();
+            self.setupContracts(self.web3js,self.address);
             console.log(res);
           })
           .catch(() => {
@@ -31,6 +41,7 @@ class API {
         self.web3js.eth.getAccounts(function(e, data) {
           if (!e) {
             self.address = data[0];
+            self.setupContracts(self.web3js,self.address);
             self.isEnabled = true;
           } else {
             self.isEnabled = false;
@@ -62,7 +73,12 @@ class API {
     }
   }
   addPig(weeksNum,sumToSave){
-    console.log('Txt');
+      this.bank.createPig(sumToSave,weeksNum,function(res,err){
+          console.log(res,err);
+      })
+  }
+  feedPig(){
+      throw "Not done yet";
   }
 }
 export { API };
