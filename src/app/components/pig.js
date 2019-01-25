@@ -1,4 +1,4 @@
-const template = data => `
+const template = model => `
 Your pig template
 `;
 
@@ -9,7 +9,8 @@ class PigComponent {
     this.model = {
       pigWeeksLeft: "",
       weeklyAmount: "",
-      weeksSinceLastPayment: ""
+      weeksSinceLastPayment: "",
+      hasPig:false
     };
   }
 

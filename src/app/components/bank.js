@@ -1,25 +1,23 @@
-const bankTemplate = model => {
-  var greetingsClass = "hidden";
-  var metaMaskClass = "hidden";
-  if (model.metamaskEnabled) {
-    metaMaskClass = "hidden";
-  } else {
-    metaMaskClass = "visible";
-  }
-  if (
-    !model.metamaskEnabled ||
-    model.address === "0x0000000000000000000000000000000000000000"
-  ) {
-    greetingsClass = "hidden";
-  } else {
-    greetingsClass = "visible";
-  }
+import helloTemplate from "./templates/hello";
+import noMetamaskTemplate from "./templates/no_metamask";
+console.log(helloTemplate);
+
+
+const createPigTemplate = model => {
+
+  var noPigClass = "visible";
   return `
-<section>
-<h3 class="${metaMaskClass}">You need Web3 provider to use this app</h3>
-<h3 class="${greetingsClass}">Hello ${model.address}</h3>
-</section>
-`;
+    <section class="${noPigClass}">
+     Nie masz jeszcze świnki skarbonki, stwórz jedną
+    </section>`;
+}
+
+const bankTemplate = model => {
+  return `<section> `
+ //   +noMetamaskTemplate(model)+''
+    +helloTemplate(model)+''
+    +createPigTemplate(model)+''
+    `</section>`;
 };
 
 class BankComponent {
