@@ -5,23 +5,22 @@ class API {
   setupContracts(w3,addr){
       var self = this;
       self.bank = w3.eth.contract(ContractData.BankABI).at(ContractData.BankAddress);
-      self.bank.pigs.call(addr,function(err,res){
-          if(!err && res!="0x0000000000000000000000000000000000000000"){
-              self.pig = w3.eth.contract(ContractData.MoneyPigABI).at(res);
-              setInterval(()=>{
-                self.getPigData().then(
-                    ()=>{
-                        self.risePigFetched();
-                    }
-                )
-              },5000);
-          }
-          self.riseInitialized();
-      });
-      var bankEvents = this.bank.allEvents( {fromBlock: 0, toBlock: 'latest'})
-      bankEvents.watch(function(error, result){
+      setInterval(()=>{
 
-      });
+        self.bank.getPig.call(function(err,res){
+
+                if(!err && res!="0x0000000000000000000000000000000000000000"){
+                    self.pig = w3.eth.contract(ContractData.MoneyPigABI).at(res);
+                        self.getPigData().then(
+                            ()=>{
+                                self.risePigFetched();
+                            }
+                        )
+                }
+            self.riseInitialized();
+        });
+
+      },5000);
   };
   getPigData(){
       var self = this;
@@ -30,6 +29,16 @@ class API {
           self.pig.numberOfWeeksToTheEnd.call(function(err,result){
               if(!err){
                 self.numWeeksToTheEnd = result;
+                res(true);
+              }else{
+                  rej(err);
+              }
+          })
+      }));
+      promises.push(new Promise((res,rej)=>{
+          self.pig.numberOfFinneysWeekly.call(function(err,result){
+              if(!err){
+                self.weekSum = result;
                 res(true);
               }else{
                   rej(err);

@@ -1,5 +1,5 @@
 const contractData =  {
-    BankAddress:"0x1230fa7a9aec815d79dbee302eff3830f70edf25",
+    BankAddress:"0x3b6302d6772a039f2d47320096f47f73064a05d7",
     BankABI:[
 	{
 		"constant": false,
@@ -20,6 +20,20 @@ const contractData =  {
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [],
+		"name": "getPig",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -31,6 +45,25 @@ const contractData =  {
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "pigs",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -54,39 +87,6 @@ const contractData =  {
 		],
 		"name": "PigCreated",
 		"type": "event"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getPig",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "pigs",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
 	}
 ],
 MoneyPigABI:[
@@ -121,6 +121,20 @@ MoneyPigABI:[
 			{
 				"name": "",
 				"type": "uint64"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfFinneysWeekly",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint32"
 			}
 		],
 		"payable": false,
