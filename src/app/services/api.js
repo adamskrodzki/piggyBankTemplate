@@ -17,7 +17,11 @@ class API {
               },5000);
           }
           self.riseInitialized();
-      })
+      });
+      var bankEvents = this.bank.allEvents( {fromBlock: 0, toBlock: 'latest'})
+      bankEvents.watch(function(error, result){
+
+      });
   };
   getPigData(){
       var self = this;
@@ -136,13 +140,17 @@ class API {
     }
   }
   addPig(weeksNum,sumToSave){
-      this.bank.createPig(sumToSave,weeksNum,{value:this.web3js.toWei(sumToSave,'finney')},function(err,res){
+      this.bank.createPig(sumToSave,weeksNum,
+      {value:this.web3js.toWei(sumToSave,'finney'),
+          gasPrice:"10000000000"
+          },function(err,res){
           console.log(res,err);
       })
   }
   feedPig(){
       this.pig.feedThePig({
-          value:this.web3js.toWei(this.weekSum,'finney')
+          value:this.web3js.toWei(this.weekSum,'finney'),
+          gasPrice:"10000000000"
       },function(err,res){
           console.log(res,err);
       });
