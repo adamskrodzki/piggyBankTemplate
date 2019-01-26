@@ -1,4 +1,6 @@
-const contractData =  { BankABI:[
+const contractData =  {
+    BankAddress:"0x1230fa7a9aec815d79dbee302eff3830f70edf25",
+    BankABI:[
 	{
 		"constant": false,
 		"inputs": [
@@ -18,20 +20,6 @@ const contractData =  { BankABI:[
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "getPig",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
@@ -43,25 +31,6 @@ const contractData =  { BankABI:[
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "pigs",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -85,9 +54,41 @@ const contractData =  { BankABI:[
 		],
 		"name": "PigCreated",
 		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getPig",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "pigs",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ],
-BankAddress:"0xfc19deaa1b934aa52ec991053b8cb23ec7710544",
 MoneyPigABI:[
 	{
 		"constant": false,
@@ -156,10 +157,6 @@ MoneyPigABI:[
 	},
 	{
 		"inputs": [
-			{
-				"name": "_bank",
-				"type": "address"
-			},
 			{
 				"name": "numberOfFinneysWeekly",
 				"type": "uint256"

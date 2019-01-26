@@ -20,7 +20,7 @@ class BankComponent {
     var model = {
       metamaskEnabled: false,
       address: "0x0000000000000000000000000000000000000000",
-      hasPig: true,
+      hasPig: false,
       pig:{
           numberOfWeeks:15,
           payPerWeek:30

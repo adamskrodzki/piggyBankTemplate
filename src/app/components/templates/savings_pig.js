@@ -25,9 +25,9 @@ const savingsPigTemplate = model => {
 <div class="card" style="width: 18rem;">
   <img src="${pigImageUrl}" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">Twoja Świnia</h5>
+    <h5 class="card-title">Twoja Świnia (${model.sumCollected})</h5>
     <p class="card-text">Ostatnio wrzuciłeś coś do świnki ${model.weeksSinceLastPayment} tygodni temu. ${additionalText}</p>
-    <div class="btn ${feedButtonClass}">Nakarm</div>
+    <div class="btn ${feedButtonClass}" onclick="App.currentComponent.actions.feedPig()">Nakarm</div>
   </div>
 </div>
     </section>`;

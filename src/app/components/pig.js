@@ -7,12 +7,18 @@ class PigComponent {
   constructor(app) {
     this.api = app.api;
     this.name = "pig";
-    this.model = {
+    var model = {
       pigWeeksLeft: 7,
-      weeklyAmount: "10000000000000000",
-      weeksSinceLastPayment: 2,
+      weeklyFinneyAmount: 5,
+      weeksSinceLastPayment: 1,
       hasPig:true
     };
+    this.model = model;
+    this.actions = {
+        feedPig:function(){
+            app.api.feedPig(model.weeklyFinneyAmount);
+        }
+    }
   }
 
   view(model) {

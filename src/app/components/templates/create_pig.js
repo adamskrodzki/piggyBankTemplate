@@ -7,7 +7,7 @@ const createPigTemplate = model => {
   return `<section class="${noPigClass}">
      <p>Nie masz jeszcze świnki skarbonki, stwórz nową! Wybierz liczbę tygodni,
      przez którą będziesz oszczędzać i tygodniową kwotę. Świnka dopilnuje byś
-     dotrzymał słowa, za każdy opuszczony tydzień liczba wpłat do wypłaty rośnie o jeden.
+     dotrzymał słowa, za każdy opuszczony tydzień liczba wpłat koniecznych do wypłaty coałości rośnie o jeden.
      Gdy wpłacisz ostatnią transzę świnka zwróci Ci całość i trafi do nieba :).
      Bądź sumienny.</p>
      <form >
