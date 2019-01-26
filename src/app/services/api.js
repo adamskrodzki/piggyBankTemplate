@@ -1,4 +1,4 @@
-import * as ContractData from './contractdata';
+import ContractData from './contractdata';
 /*global Web3, web3, ethereum*/
 class API {
 
@@ -6,14 +6,58 @@ class API {
       var self = this;
       self.bank = w3.eth.contract(ContractData.BankABI).at(ContractData.BankAddress);
       self.bank.pigs.call(addr,function(err,res){
-          if(!err){
-              self.pig = w3.eth.contract(ContractData.MoneyPigABI).at(addr);
+          if(!err && res!="0x0000000000000000000000000000000000000000"){
+              self.pig = w3.eth.contract(ContractData.MoneyPigABI).at(res);
+              setInterval(()=>{
+                self.getPigData().then(
+                    ()=>{
+                        self.risePigFetched();
+                    }
+                )
+              },5000);
           }
           self.riseInitialized();
       })
   };
+  getPigData(){
+      var self = this;
+      var promises = [];
+      promises.push(new Promise((res,rej)=>{
+          self.pig.numberOfWeeksToTheEnd.call(function(err,result){
+              if(!err){
+                self.numWeeksToTheEnd = result;
+                res(true);
+              }else{
+                  rej(err);
+              }
+          })
+      }));
+      promises.push(new Promise((res,rej)=>{
+          self.pig.numberOfWeeksSinceLast.call(function(err,result){
+              if(!err){
+                self.numWeeksSinceLast = result;
+                res(true);
+              }else{
+                  rej(err);
+              }
+          })
+      }));
+      promises.push(new Promise((res,rej)=>{
+          self.web3js.eth.getBalance(self.pig.address,function(err,result){
+              if(!err){
+                self.sumCollected = result;
+                res(true);
+              }else{
+                  rej(err);
+              }
+          });
+      }));
+      return Promise.all(promises);
+  }
   constructor() {
     this.callbacks = [];
+    this.pigCallbacks = [];
+    this.weekSum = 30;
     var self = this;
 
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
@@ -60,10 +104,23 @@ class API {
       this.runCallback(x);
     });
   }
+  risePigFetched() {
+    this.pigFetched = true;
+    this.pigCallbacks.forEach(x => {
+      this.runPigCallback(x);
+    });
+  }
   runCallback(x) {
     x({
       isEnabled: this.isEnabled,
       address: this.address
+    });
+  }
+  runPigCallback(x) {
+    x({
+        numberOfWeeksSinceLast:this.numWeeksSinceLast,
+        numberOfWeeksToTheEnd:this.numWeeksToTheEnd,
+        sumCollected:this.web3js.fromWei(this.sumCollected,'ether')
     });
   }
   onInitialized(clbk) {
@@ -72,13 +129,23 @@ class API {
       this.runCallback(clbk);
     }
   }
+  onPigFetched(clbk){
+    this.pigCallbacks.push(clbk);
+    if (this.pigFetched) {
+      this.runPigCallback(clbk);
+    }
+  }
   addPig(weeksNum,sumToSave){
-      this.bank.createPig(sumToSave,weeksNum,function(res,err){
+      this.bank.createPig(sumToSave,weeksNum,{value:this.web3js.toWei(sumToSave,'finney')},function(err,res){
           console.log(res,err);
       })
   }
   feedPig(){
-      throw "Not done yet";
+      this.pig.feedThePig({
+          value:this.web3js.toWei(this.weekSum,'finney')
+      },function(err,res){
+          console.log(res,err);
+      });
   }
 }
 export { API };

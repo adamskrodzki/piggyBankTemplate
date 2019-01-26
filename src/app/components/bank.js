@@ -23,7 +23,7 @@ class BankComponent {
       hasPig: false,
       pig:{
           numberOfWeeks:15,
-          payPerWeek:30
+          payPerWeek:30,
       }
     };
     this.actions = {
@@ -34,6 +34,9 @@ class BankComponent {
         }
     }
     this.model = model;
+    this.api.onPigFetched(()=>{
+        model.hasPig = true;
+    });
   }
   view(model) {
     return bankTemplate(model);

@@ -11,7 +11,8 @@ class PigComponent {
       pigWeeksLeft: 7,
       weeklyFinneyAmount: 5,
       weeksSinceLastPayment: 1,
-      hasPig:true
+      sumCollected:"0.005",
+      hasPig:false,
     };
     this.model = model;
     this.actions = {
@@ -19,8 +20,14 @@ class PigComponent {
             app.api.feedPig(model.weeklyFinneyAmount);
         }
     }
+    this.api.onPigFetched(this.updatePigModel.bind(this));
   }
-
+  updatePigModel(pig){
+      this.model.weeksSinceLastPayment = pig.numberOfWeeksSinceLast;
+      this.model.pigWeeksLeft = pig.numberOfWeeksToTheEnd;
+      this.model.sumCollected = pig.sumCollected;
+      this.model.hasPig = true;
+  }
   view(model) {
     const cHTML = noPigTemplate(this.model) + " "+ savingsPigTemplate(this.model);
     console.log("template ready");
